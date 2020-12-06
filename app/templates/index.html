@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Year</th>
+        <th scope="col">Age</th>
+        <th scope="col">Name</th>
+        <th scope="col">Movie</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for award in awards %}
+    <tr>
+        <td><a href="/view/{{award.id}}" class="card-link btn btn-primary">{{ award.id }}</a></td>
+        <td>{{ award.year }}</td>
+        <td>{{ award.age }}</td>
+        <td>{{ award.name }}</td>
+        <td>{{ award.movie }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

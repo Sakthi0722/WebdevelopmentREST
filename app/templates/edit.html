@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/edit/{{award.id}}" method="post">
+    <div class="row">
+        <div class="col">
+            <label>Id: {{award.id}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="year">Year Awarded</label>
+            <input id="year" type="text" class="form-control" placeholder="Year"
+                   name="year" value="{{award.year}}">
+        </div>
+        <div class="col">
+            <label for="age">Age of the Artist</label>
+            <input id="age" type="text" class="form-control" placeholder="Age" name="age"
+                   value="{{award.age}}">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="name">Name of Artist</label>
+            <input id="name" type="text" class="form-control" placeholder="Name" name="name"
+                   value="{{award.name}}">
+        </div>
+        <div class="col">
+            <label for="movie">Name of the Movie</label>
+            <input id="movie" type="text" class="form-control" placeholder="Movie" name="movie"
+                   value="{{award.movie}}">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+
+</form>
+{% endblock %}
+

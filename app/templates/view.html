@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card" class="m-5 p-2">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: {{ award.id }}</li>
+        <li class="list-group-item">Year: {{ award.year }}</li>
+        <li class="list-group-item">Age: {{ award.age }}</li>
+        <li class="list-group-item">Name: {{ award.name }}</li>
+        <li class="list-group-item">Movie: {{ award.movie }}</li>
+    </ul>
+    <div class="card-body">
+        <a href="/edit/{{award.id}}" class="card-link btn btn-primary">edit</a>
+        <form action="/delete/{{award.id}}" method="post"><button type="submit" class="btn btn-danger">Delete</button></form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/awards/new" method="POST">
+    <div class="row">
+        <div class="col">
+            <label for="id">ID</label>
+            <input id="id" type="text" class="form-control" placeholder="Oscar Id" name="id">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="year">Year Awarded</label>
+            <input id="year" type="text" class="form-control" placeholder="Year Awarded" name="year">
+        </div>
+        <div class="col">
+            <label for="age">Age Awarded</label>
+            <input id="age" type="text" class="form-control" placeholder="Age Awarded" name="age">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="name">Name of Artist</label>
+            <input id="name" type="text" class="form-control" placeholder="Name of Artist"
+                   name="name">
+        </div>
+        <div class="col">
+            <label for="movie">Name of the Movies</label>
+            <input id="movie" type="text" class="form-control" placeholder="Name of the Movie" name="movie">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Success</button>
+
+</form>
+
+{% endblock %}
+

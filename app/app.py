@@ -78,41 +78,60 @@ def form_delete_post(award_id):
     return redirect("/", code=302)
 
 
-@app.route('/api/v1/oscar', methods=['GET'])
+@app.route('/api/v1/awards', methods=['GET'])
 def api_browse() -> str:
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM oscarAgeMale')
     result = cursor.fetchall()
-    json_result = json.dumps(result);
+    json_result = json.dumps(result)
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
 
-@app.route('/api/oscar/<int:award_id>', methods=['GET'])
+@app.route('/api/v1/awards/<int:award_id>', methods=['GET'])
 def api_retrieve(award_id) -> str:
     cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM oscarAgeMale WHERE id=%s', award_id)
+    cursor.execute('SELECT * FROM oscarAgeMale WHERE Id=%s', award_id)
     result = cursor.fetchall()
-    json_result = json.dumps(result);
+    json_result = json.dumps(result)
     resp = Response(json_result, status=200, mimetype='application/json')
     return resp
 
 
-@app.route('/api/oscar/', methods=['POST'])
-def api_add() -> str:
-    resp = Response(status=201, mimetype='application/json')
-    return resp
-
-
-@app.route('/api/oscar/<int:award_id>', methods=['PUT'])
+@app.route('/api/v1/awards/<int:award_id>', methods=['PUT'])
 def api_edit(award_id) -> str:
+    cursor = mysql.get_db().cursor()
+    content = request.json
+    inputData = (content['year'], content['age'], content['name'],
+                 content['movie'], award_id)
+    sql_update_query = """UPDATE oscarAgeMale t SET t.year = %s, t.age = %s, t.name = %s, t.movie = 
+        %s WHERE t.id = %s """
+    cursor.execute(sql_update_query, inputData)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/awards', methods=['POST'])
+def api_add() -> str:
+    content = request.json
+    cursor = mysql.get_db().cursor()
+    inputData = (content['id'], content['year'], content['age'], content['name'],
+                 content['movie'])
+    sql_insert_query = """INSERT INTO oscarAgeMale (id,year,age,name,movie) VALUES (%s, %s, %s, %s, %s) """
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
 
 
-@app.route('/api/oscar/<int:award_id>', methods=['DELETE'])
+@app.route('/api/v1/awards/<int:award_id>', methods=['DELETE'])
 def api_delete(award_id) -> str:
-    resp = Response(status=210, mimetype='application/json')
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM oscarAgeMale WHERE Id = %s """
+    cursor.execute(sql_delete_query, award_id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
